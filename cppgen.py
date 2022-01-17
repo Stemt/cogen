@@ -94,11 +94,13 @@ class cpp_class:
         getsetters = []
         for var in self.vars:
             comps["variables"] += tab + var[0].as_def_str()
+            var_name = var[0].get_name()
+            var_name = var_name.capitalize()
             if var[1]:
-                getter = cpp_func(var[0].get_type(),"get"+var[0].get_name())
+                getter = cpp_func(var[0].get_type(),"get"+var_name)
                 getsetters.append(getter)
             if var[2]:
-                setter = cpp_func("void","set"+var[0].get_name())
+                setter = cpp_func("void","set"+var_name)
                 setter.add_arg(var[0])
                 getsetters.append(setter)
 
@@ -149,7 +151,8 @@ class cpp_class:
                 setter = cpp_func("void ","set"+var_name)
                 setter.add_arg(var[0])
                 set_imp = set_implement.format(var_name=var[0].get_name())
-                method_implementations += method_template.format(return_type=setter.return_type,class_name=self.name,method_name=setter.name,method_params="",implement=set_imp)            
+                parameters = var[0].type_name + " " + var[0].name
+                method_implementations += method_template.format(return_type=setter.return_type,class_name=self.name,method_name=setter.name,method_params=parameters,implement=set_imp)            
             
         
         return source.format(class_name=self.name,method_implementations=method_implementations)

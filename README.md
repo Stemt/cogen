@@ -10,12 +10,13 @@ cogen is a cli tool for generating code templates
 - create classes
 - generate header code
 - generate source code
+- exporting header and source files
+
 
 ## TODO
 
 ### Features
 
-- exporting header and source files
 - renaming classes
 - change parent class
 - auto generating getters and setters for variables
